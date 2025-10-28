@@ -38,6 +38,15 @@ class AsYouTypeFormatter extends TextInputFormatter {
     int newValueLength = newValue.text.length;
 
     if (newValueLength > 0 && newValueLength > oldValueLength) {
+      // Fixes autofill and manually typing the dial code in the input
+      if (newValue.text.startsWith(dialCode)) {
+        final newValueText = newValue.text.replaceFirst(dialCode, '');
+        newValue = newValue.copyWith(
+          text: newValueText,
+          selection: TextSelection.collapsed(offset: newValueText.length),
+        );
+      }
+
       String newValueText = newValue.text;
       String rawText = newValueText.replaceAll(separatorChars, '');
 
