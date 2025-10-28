@@ -35,8 +35,15 @@ class AsYouTypeFormatter extends TextInputFormatter {
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     // Fixes autofill and manually typing the dial code in the input
+    final dialCodeWithoutPlus = dialCode.replaceFirst('+', '');
     if (newValue.text.startsWith(dialCode)) {
       final newValueText = newValue.text.replaceFirst(dialCode, '');
+      newValue = newValue.copyWith(
+        text: newValueText,
+        selection: TextSelection.collapsed(offset: newValueText.length),
+      );
+    } else if (newValue.text.startsWith(dialCodeWithoutPlus)) {
+      final newValueText = newValue.text.replaceFirst(dialCodeWithoutPlus, '');
       newValue = newValue.copyWith(
         text: newValueText,
         selection: TextSelection.collapsed(offset: newValueText.length),
