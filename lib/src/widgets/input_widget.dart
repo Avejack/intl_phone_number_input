@@ -294,6 +294,12 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   /// hint text, labels, icons, borders, etc. Takes precedence over [inputBorder].
   final InputDecoration? inputDecoration;
 
+  /// Called when the input is beeing tapped.
+  ///
+  /// Useful when you want to request the users phone number
+  /// from the OS.
+  final GestureTapCallback? inputOnTap;
+
   /// Decoration for the country search box in selector popups.
   ///
   /// Customizes the appearance of the search field in bottom sheet and dialog selectors.
@@ -372,6 +378,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.selectorTextStyle,
       this.inputBorder,
       this.inputDecoration,
+      this.inputOnTap,
       this.searchBoxDecoration,
       this.textAlign = TextAlign.start,
       this.textAlignVertical = TextAlignVertical.center,
@@ -688,6 +695,7 @@ class _InputWidgetView
               decoration: state.getInputDecoration(widget.inputDecoration),
               textAlign: widget.textAlign,
               textAlignVertical: widget.textAlignVertical,
+              onTap: widget.inputOnTap,
               onEditingComplete: widget.onSubmit,
               onFieldSubmitted: widget.onFieldSubmitted,
               autovalidateMode: widget.autoValidateMode,
